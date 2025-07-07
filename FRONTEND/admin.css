@@ -1,0 +1,67 @@
+
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f9f9f9;
+  }
+  
+  /* Login Container */
+  .login-container, .admin-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .admin-container {
+    display: none; /* Hidden by default */
+  }
+  
+  /* Admin Options */
+  .admin-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .admin-options button {
+    padding: 10px;
+    background: #ff6600 ;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .admin-options button:hover {
+    background: #ff6600;
+  }
+  
+  /* Form Container */
+  .form-container {
+    display: none; /* Hidden by default */
+    margin-top: 20px;
+  }
+  
+  .form-container input, .form-container textarea, .form-container button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .form-container button {
+    background: #333;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .form-container button:hover {
+    background: #ff6600;
+  }

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel - BLIZZARD HUB</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <!-- Login Section -->
+  <div class="login-container" id="loginContainer">
+    <h2>Admin Login</h2>
+    <form id="loginForm">
+      <input type="text" id="username" placeholder="Username" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <button type="submit">Login</button>
+    </form>
+  </div>
+
+  <!-- Admin Roles Section -->
+  <div class="admin-container" id="adminContainer">
+    <h2>Admin Roles</h2>
+    <div class="admin-options">
+      <button onclick="showForm('manageCars')">Manage Cars</button>
+      <button onclick="showForm('manageUsers')">Manage Users</button>
+      <button onclick="showForm('manageRentals')">Manage Car Rentals</button>
+    </div>
+
+    <!-- Manage Cars Form -->
+    <div id="manageCars" class="form-container">
+      <h3>Add New Car</h3>
+      <form id="carForm">
+        <input type="text" id="carModel" placeholder="Car Model" required>
+        <input type="text" id="carBrand" placeholder="Car Brand" required>
+        <input type="number" id="carYear" placeholder="Year" required>
+        <input type="number" id="carPrice" placeholder="Price per Day" required>
+        <input type="file" id="carPhoto" accept="image/*" required>
+        <button type="submit">Add Car</button>
+      </form>
+    </div>
+
+    <!-- Manage Users Form -->
+    <div id="manageUsers" class="form-container">
+      <h3>Add New User</h3>
+      <form id="userForm">
+        <input type="text" id="userName" placeholder="Full Name" required>
+        <input type="email" id="userEmail" placeholder="Email" required>
+        <input type="password" id="userPassword" placeholder="Password" required>
+        <button type="submit">Add User</button>
+      </form>
+    </div>
+
+    <!-- Manage Rentals Form -->
+    <div id="manageRentals" class="form-container">
+      <h3>Manage Car Rentals</h3>
+      <form id="rentalForm">
+        <input type="text" id="rentalCarId" placeholder="Car ID" required>
+        <input type="text" id="rentalUserId" placeholder="User ID" required>
+        <input type="date" id="rentalStartDate" placeholder="Start Date" required>
+        <input type="date" id="rentalEndDate" placeholder="End Date" required>
+        <button type="submit">Add Rental</button>
+        <button type="button" onclick="removeRental()">Remove Rental</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html>

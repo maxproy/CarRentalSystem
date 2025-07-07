@@ -1,0 +1,228 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  header {
+    background: #2c2929;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  header .logo h1 {
+    margin: 0;
+  }
+  
+  nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+  
+  nav ul li {
+    margin-left: 20px;
+  }
+  
+  nav ul li a {
+    color: #f5eeee;
+    text-decoration: none;
+  }
+  
+  .hero {
+    background: url('image/bg.jpg') no-repeat center center/cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+  }
+  
+  .hero-content h2 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+  }
+  
+  .hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+  
+  .btn {
+    background: #ff6600;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+  
+  .cars, .about, .contact {
+    padding: 50px 20px;
+    text-align: center;
+  }
+  
+  .car-list {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+  
+  .car-list .car {
+    background: #3d3a3a;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 5px;
+    width: 30%;
+  }
+  
+  .contact form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .contact form input, .contact form textarea {
+    width: 80%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .contact form button {
+    background:#ff6600;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  footer {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+  }
+  /* Dropdown Styles */
+.dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .login-btn {
+    background: #ff6600;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+  
+  .login-btn i {
+    margin-right: 5px;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background: #fff;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  
+  .dropdown-content a {
+    color: #333;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+  }
+  
+  .dropdown-content a:hover {
+    background: #f4f4f4;
+  }
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+/* admin style*/
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f9f9f9;
+  }
+  
+  /* Login Container */
+  .login-container, .admin-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .admin-container {
+    display: none; /* Hidden by default */
+  }
+  
+  /* Admin Options */
+  .admin-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .admin-options button {
+    padding: 10px;
+    background: #333;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .admin-options button:hover {
+    background: #ff6600;
+  }
+  
+  /* Form Container */
+  .form-container {
+    display: none; /* Hidden by default */
+    margin-top: 20px;
+  }
+  
+  .form-container input, .form-container textarea, .form-container button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .form-container button {
+    background: #333;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .form-container button:hover {
+    background: #ff6600;
+  }
