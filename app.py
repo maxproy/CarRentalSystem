@@ -5,10 +5,17 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import os
 app = Flask(__name__)
 
+FLASK_ENV = 'development'  # Set the environment to development for debugging
+if FLASK_ENV == 'development':
+    app.config['DEBUG'] = True
+else:
+    app.config['DEBUG'] = False
+
+FLASK_ENV_SECRET_KEY = "I2Z0Z0O4H"
 # Configurations
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blizzardhub.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = 'your_secret_key_here'
+app.config['SECRET_KEY'] = FLASK_ENV_SECRET_KEY
 
 db = SQLAlchemy(app)
 CORS(app)
