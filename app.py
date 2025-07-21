@@ -3,17 +3,22 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
-app = Flask(__name__)
+def create_app():
+    """Create and configure the Flask application."""
+    app = Flask(__name__)
 
-FLASK_ENV = 'development'  # Set the environment to development for debugging
-if FLASK_ENV == 'development':
-    app.config['DEBUG'] = True
-else:
-    app.config['DEBUG'] = False
+    FLASK_ENV = 'development'  # Set the environment to development for debugging
+    if FLASK_ENV == 'development':
+        app.config['DEBUG'] = True
+       
+    return app
 
-FLASK_ENV_SECRET_KEY = "I2Z0Z0O4H"
+FLASK_ENV_SQLALCHEMY_DATABASE_URI = 'sqlite:///blizzardhub.db'  # Database URI for SQLite
+FLASK_ENV_SECRET_KEY = "I2Z0Z0O4H"  # Use a secure key for session management in production
+FLASK_ENV_SQLALCHEMY_ECHO = True # Echo SQL queries for debugging
 # Configurations
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blizzardhub.db'
+app = create_app()
+app.config['SQLALCHEMY_DATABASE_URI'] = FLASK_ENV_SQLALCHEMY_DATABASE_URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = FLASK_ENV_SECRET_KEY
 
