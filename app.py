@@ -5,6 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import os
 app = Flask(__name__)
 
+FLASK_ENV_SECRET_KEY = os.getenv('FLASK_ENV_SECRET_KEY', "12345678")
 # Configurations
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blizzardhub.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -14,6 +15,7 @@ db = SQLAlchemy(app)
 CORS(app)
 
 # Import models after db initialization to avoid circular imports
+
 from models import Car, User, Rental, ContactMessage
 
 # Routes to serve static files (frontend)
