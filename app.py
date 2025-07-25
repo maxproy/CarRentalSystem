@@ -3,7 +3,9 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
-app = Flask(__name__)
+
+from models import Car, ContactMessage, Rental, User
+app = Flask(__name__, static_folder='FRONTEND', static_url_path='')
 
 FLASK_ENV_SECRET_KEY = os.getenv('FLASK_ENV_SECRET_KEY', "12345678")
 # Configurations
@@ -16,12 +18,12 @@ CORS(app)
 
 # Import models after db initialization to avoid circular imports
 
-from models import Car, User, Rental, ContactMessage
 
 # Routes to serve static files (frontend)
 @app.route('/')
 def serve_index():
-    return send_from_directory('.', 'index.html')
+    frontend_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'FRONTEND')
+    return send_from_directory(frontend_dir, 'index.html')
 
 import os
 
@@ -159,6 +161,7 @@ def contact():
         return jsonify({'success': False, 'message': str(e)}), 400
 
 if __name__ == '__main__':
-    if not os.path.exists('blizzardhub.db'):
-        db.create_all()
+    with app.app_context():
+        if not os.path.exists('blizzardhub.db'):
+            db.create_all()
     app.run(debug=True)
