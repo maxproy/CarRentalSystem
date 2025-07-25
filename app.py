@@ -23,9 +23,12 @@ from models import Car, User, Rental, ContactMessage
 def serve_index():
     return send_from_directory('.', 'index.html')
 
+import os
+
 @app.route('/admin.html')
 def serve_admin():
-    return send_from_directory('.', 'admin.html')
+    frontend_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'FRONTEND')
+    return send_from_directory(frontend_dir, 'admin.html')
 
 @app.route('/<path:path>')
 def serve_static(path):

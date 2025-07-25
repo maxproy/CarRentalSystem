@@ -4,12 +4,8 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
   e.preventDefault();
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
-  // Only allow admin access if username and password match admin credentials
-  if (username !== "TED" || password !== "admin123") {
-    alert("Access denied. Only admin can access this page.");
-    return;
-  }
 
+  // Remove client-side hardcoded check, rely on backend validation
   fetch('/api/login', {
     method: 'POST',
     headers: {
@@ -20,9 +16,10 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
   .then(response => response.json())
   .then(data => {
     if (data.success) {
-      // Set username and password in localStorage for session management
-      localStorage.setItem("TED", username);
-      localStorage.setItem("12345678", password);
+      // Store username in localStorage for session management
+      localStorage.setItem("adminUsername", username);
+      // Optionally, store a session flag instead of password
+      localStorage.setItem("isAdminLoggedIn", "true");
       document.getElementById("loginContainer").style.display = "none";
       document.getElementById("adminContainer").style.display = "block";
     } else {
