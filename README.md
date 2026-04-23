@@ -1,142 +1,44 @@
-# Car Rental System
+# Car Rental System Documentation
 
-A comprehensive car rental management system designed to streamline vehicle rentals, reservations, and customer management.
+## Overview
+This Car Rental System is developed using a tech stack that includes Flask (Python), JavaScript, HTML, and CSS. The application enables users to hire cars online with an easy-to-use interface.
+
+## Technology Stack
+- **Backend**: Flask (Python)
+- **Frontend**: HTML, CSS, JavaScript
 
 ## Features
+- User Authentication (Sign Up, Login/Logout)
+- Car listing and browsing
+- Booking and rental management
+- Payment processing (optional integration)
 
-- **Vehicle Management**: Track and manage your rental fleet with detailed vehicle information
-- **Customer Management**: Maintain customer profiles and rental history
-- **Reservation System**: Easy booking and scheduling of vehicles
-- **Billing & Payments**: Automated invoice generation and payment processing
-- **Reporting**: Generate detailed rental and financial reports
-- **User Authentication**: Secure login and role-based access control
+## Getting Started
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/maxproy/CarRentalSystem.git
+   cd CarRentalSystem
+   ```
 
-## Prerequisites
+2. **Install Dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-Before you begin, ensure you have the following installed:
-- Java 11 or higher
-- Maven 3.6.0 or higher
-- MySQL 5.7 or higher
-- Git
-
-## Installation
-
-1. **Clone the repository**  
-```bash
-git clone https://github.com/maxproy/CarRentalSystem.git
-cd CarRentalSystem
-```
-
-2. **Configure the database**  
-   - Create a MySQL database named `car_rental_db`  
-   - Update database credentials in `application.properties` or `application.yml`
-
-3. **Build the project**  
-```bash
-mvn clean install
-```
-
-4. **Run the application**  
-```bash
-mvn spring-boot:run
-```
-
-The application will start on `http://localhost:8080`
+3. **Run the Application**
+   ```bash
+   python app.py
+   ```
 
 ## Usage
-
-### Admin Panel
-- Access the admin dashboard at `/admin`
-- Manage vehicles, customers, and reservations
-- View reports and analytics
-
-### Customer Portal
-- Create an account or log in at `/login`
-- Browse available vehicles
-- Make and manage reservations
-- View rental history and invoices
-
-## API Endpoints
-
-### Vehicles
-- `GET /api/vehicles` - List all vehicles
-- `POST /api/vehicles` - Add new vehicle
-- `GET /api/vehicles/{id}` - Get vehicle details
-- `PUT /api/vehicles/{id}` - Update vehicle
-- `DELETE /api/vehicles/{id}` - Delete vehicle
-
-### Reservations
-- `GET /api/reservations` - List all reservations
-- `POST /api/reservations` - Create new reservation
-- `GET /api/reservations/{id}` - Get reservation details
-- `PUT /api/reservations/{id}` - Update reservation
-- `DELETE /api/reservations/{id}` - Cancel reservation
-
-### Customers
-- `GET /api/customers` - List all customers
-- `POST /api/customers` - Register new customer
-- `GET /api/customers/{id}` - Get customer details
-- `PUT /api/customers/{id}` - Update customer
-
-## Configuration
-
-Key configuration options in `application.properties`:
-
-```properties
-# Database Configuration
-spring.datasource.url=jdbc:mysql://localhost:3306/car_rental_db
-spring.datasource.username=root
-spring.datasource.password=password
-
-# Server Port
-server.port=8080
-
-# JWT Configuration
-jwt.secret=your_secret_key
-jwt.expiration=86400000
-```
-
-## Project Structure
-
-```
-CarRentalSystem/
-├── src/main/java/
-│   ├── controller/      # API controllers
-│   ├── service/         # Business logic
-│   ├── repository/      # Data access layer
-│   ├── model/           # Entity classes
-│   └── config/          # Configuration classes
-├── src/main/resources/
-│   ├── application.properties
-│   └── static/          # Frontend resources
-├── pom.xml              # Maven dependencies
-└── README.md
-```
+Access the application by navigating to `http://127.0.0.1:5000` in your web browser. 
 
 ## Contributing
-
-Contributions are welcome! Please follow these steps:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+To contribute, please fork the repository and create a pull request for any bug fixes or new features.
 
 ## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Support
-
-For support, email support@carrentalsystem.com or open an issue in the repository.
-
-## Authors
-
-- **Max Proy** - Initial work - [GitHub Profile](https://github.com/maxproy)
+This project is licensed under the MIT License. See the LICENSE file for details.
 
 ## Acknowledgments
-
-- Spring Boot framework
-- MySQL database
-- Bootstrap for UI components
+- Flask documentation: https://flask.palletsprojects.com/
+- Other Libraries and Resources Used
