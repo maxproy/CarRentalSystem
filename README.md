@@ -1,94 +1,142 @@
- Car Rental Management System
+# Car Rental System
 
-## Overview
-
-The Car Rental Management System is a web-based application designed to streamline the operations of a car rental business. The system provides a secure platform for both administrators and users, enabling smooth management, booking, and tracking of rental vehicles. 
+A comprehensive car rental management system designed to streamline vehicle rentals, reservations, and customer management.
 
 ## Features
 
-### User Authentication
-- **Login System:** Both admins and users can securely log in to the system.
-- **Role-Based Access:** Admins have advanced management privileges, while users can view available cars and make rental requests.
+- **Vehicle Management**: Track and manage your rental fleet with detailed vehicle information
+- **Customer Management**: Maintain customer profiles and rental history
+- **Reservation System**: Easy booking and scheduling of vehicles
+- **Billing & Payments**: Automated invoice generation and payment processing
+- **Reporting**: Generate detailed rental and financial reports
+- **User Authentication**: Secure login and role-based access control
 
-### Admin Features
-- **Manage Cars:**
-  - Add new cars to the system with detailed information (make, model, year, price, etc.).
-  - Update existing car details.
-  - Delete cars that are no longer available.
-- **Rental Records:**
-  - View all rental transactions and their statuses.
-  - Search and filter rental history by user, car, or rental date.
-  - Monitor the availability of cars.
-- **User Management:** View registered users and manage their access if required.
-- **Reports:** Access summary reports on rentals, car usage, and user activity.
+## Prerequisites
 
-### User Features
-- **Browse Cars:** View a list of available cars with detailed specifications and pricing.
-- **Book Rentals:** Request to rent a car for specific dates.
-- **View Rental History:** See current and past rental records.
-- **Profile Management:** Update personal information and view account status.
+Before you begin, ensure you have the following installed:
+- Java 11 or higher
+- Maven 3.6.0 or higher
+- MySQL 5.7 or higher
+- Git
 
-## Technologies Used
-- **Frontend:** (HTML,CSS,JS)
-- **Backend:** (FLASK,PYTHON)
-- **Database:** (SQLITE)
-- **Authentication:** (JWT)
+## Installation
 
-## Getting Started
-
-1. **Clone the repository:**
-   ```sh
-   git clone https://github.com/yourusername/car-rental-management-system.git
-   cd car-rental-management-system
-   ```
-
-2. **Install dependencies:**
-   ```sh
-   # For backend
-   cd backend
-   npm install
-   # For frontend
-   cd ../frontend
-   npm install
-   ```
-
-3. **Configure environment variables:**  
-   Create a `.env` file in both `backend` and `frontend` directories as needed (see `.env.example`).
-
-4. **Start the application:**
-   ```sh
-   # Start backend
-   cd backend
-   npm start
-   # Start frontend
-   cd ../frontend
-   npm start
-   ```
-
-5. **Access the app:**  
-   Open your browser and navigate to `http://localhost:3000` (or your configured port).
-
-### Setting Admin Credentials
-
-To set or change the admin username and password, use the provided `create_admin.py` script:
-
-```sh
-python create_admin.py <username> <password>
+1. **Clone the repository**  
+```bash
+git clone https://github.com/maxproy/CarRentalSystem.git
+cd CarRentalSystem
 ```
 
-For example, to create an admin user with username `admin` and password `admin123`:
+2. **Configure the database**  
+   - Create a MySQL database named `car_rental_db`  
+   - Update database credentials in `application.properties` or `application.yml`
 
-```sh
-python create_admin.py admin admin123
+3. **Build the project**  
+```bash
+mvn clean install
 ```
 
-This script will add the admin user to the database with the password securely hashed.
-   npm install
+4. **Run the application**  
+```bash
+mvn spring-boot:run
+```
+
+The application will start on `http://localhost:8080`
+
+## Usage
+
+### Admin Panel
+- Access the admin dashboard at `/admin`
+- Manage vehicles, customers, and reservations
+- View reports and analytics
+
+### Customer Portal
+- Create an account or log in at `/login`
+- Browse available vehicles
+- Make and manage reservations
+- View rental history and invoices
+
+## API Endpoints
+
+### Vehicles
+- `GET /api/vehicles` - List all vehicles
+- `POST /api/vehicles` - Add new vehicle
+- `GET /api/vehicles/{id}` - Get vehicle details
+- `PUT /api/vehicles/{id}` - Update vehicle
+- `DELETE /api/vehicles/{id}` - Delete vehicle
+
+### Reservations
+- `GET /api/reservations` - List all reservations
+- `POST /api/reservations` - Create new reservation
+- `GET /api/reservations/{id}` - Get reservation details
+- `PUT /api/reservations/{id}` - Update reservation
+- `DELETE /api/reservations/{id}` - Cancel reservation
+
+### Customers
+- `GET /api/customers` - List all customers
+- `POST /api/customers` - Register new customer
+- `GET /api/customers/{id}` - Get customer details
+- `PUT /api/customers/{id}` - Update customer
+
+## Configuration
+
+Key configuration options in `application.properties`:
+
+```properties
+# Database Configuration
+spring.datasource.url=jdbc:mysql://localhost:3306/car_rental_db
+spring.datasource.username=root
+spring.datasource.password=password
+
+# Server Port
+server.port=8080
+
+# JWT Configuration
+jwt.secret=your_secret_key
+jwt.expiration=86400000
+```
+
+## Project Structure
+
+```
+CarRentalSystem/
+├── src/main/java/
+│   ├── controller/      # API controllers
+│   ├── service/         # Business logic
+│   ├── repository/      # Data access layer
+│   ├── model/           # Entity classes
+│   └── config/          # Configuration classes
+├── src/main/resources/
+│   ├── application.properties
+│   └── static/          # Frontend resources
+├── pom.xml              # Maven dependencies
+└── README.md
+```
 
 ## Contributing
 
-Contributions are welcome! Please open an issue or submit a pull request for any improvements.
+Contributions are welcome! Please follow these steps:
 
-## Contact
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-For questions or support, contact [isaacmuraya254@gmail.com].
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Support
+
+For support, email support@carrentalsystem.com or open an issue in the repository.
+
+## Authors
+
+- **Max Proy** - Initial work - [GitHub Profile](https://github.com/maxproy)
+
+## Acknowledgments
+
+- Spring Boot framework
+- MySQL database
+- Bootstrap for UI components
