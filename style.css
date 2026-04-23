@@ -1,11 +1,35 @@
 /* General Styles */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: url(image.jpg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+    h1 { color: #333; font-size: 3rem; margin-bottom: 10px; }
+    p { color: #666; margin-bottom: 30px; }
+    .portal-links {
+      display: flex;
+      gap: 20px;
+    }
+    .portal-links a {
+      text-decoration: none;
+      padding: 15px 30px;
+      background: #ff6600;
+      color: #fff;
+      border-radius: 5px;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    .portal-links a:hover { background: #e65c00; }
+    .admin-link { background: #333 !important; }
+    .admin-link:hover { background: #000 !important; }
+
   header {
     background: #2c2929;
     color: white;
