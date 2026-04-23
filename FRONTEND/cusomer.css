@@ -3,17 +3,96 @@ body {
     margin: 0;
     padding: 0;
     background: #f9f9f9;
-  }
-  
-  /* Customer Container */
-  .login-container{
+}
+
+/* Shared Input Styles */
+input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    width: 95%;
+    padding: 10px;
+    background: #ff6600;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover { background: #e65c00; }
+
+/* Login Container */
+.login-container {
     max-width: 400px;
-    margin: 50px auto;
-    padding: 20px;
+    margin: 100px auto;
+    padding: 30px;
     background: #fff;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     text-align: center;
-    
-  }
-   
+}
+
+/* Dashboard Container */
+.dashboard-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.logout-btn {
+    width: auto;
+    background: #333;
+}
+
+.logout-btn:hover { background: #000; }
+
+/* Car Grid */
+.car-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.car-card {
+    background: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.car-card h4 { margin: 10px 0 5px; }
+.car-card p { color: #666; margin-bottom: 15px; }
+/* Toggle Links */
+.toggle-text {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #666;
+}
+
+.toggle-text a {
+    color: #ff6600;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.toggle-text a:hover {
+    text-decoration: underline;
+}

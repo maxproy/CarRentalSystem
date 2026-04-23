@@ -7,15 +7,39 @@
   <link rel="stylesheet" href="customer.css">
 </head>
 <body>
-  <!-- Login Section -->
+
   <div class="login-container" id="loginContainer">
-    <h2>customer Login</h2>
+    <h2>Customer Login</h2>
     <form id="loginForm">
       <input type="text" id="username" placeholder="Username" required>
       <input type="password" id="password" placeholder="Password" required>
-      <button><input type="submit" value="Login"></button>
-
+      <button type="submit">Login</button>
     </form>
+    <p class="toggle-text">Don't have an account? <a href="#" id="showRegisterBtn">Sign up here</a></p>
   </div>
+
+  <div class="login-container" id="registerContainer" style="display: none;">
+    <h2>Create an Account</h2>
+    <form id="registerForm">
+      <input type="text" id="regName" placeholder="Full Name (Username)" required>
+      <input type="email" id="regEmail" placeholder="Email Address" required>
+      <input type="password" id="regPassword" placeholder="Password" required>
+      <button type="submit">Sign Up</button>
+    </form>
+    <p class="toggle-text">Already have an account? <a href="#" id="showLoginBtn">Login here</a></p>
+  </div>
+
+  <div class="dashboard-container" id="dashboardContainer" style="display: none;">
+    <div class="header">
+      <h2>Welcome, <span id="customerName">Customer</span>!</h2>
+      <button id="logoutBtn" class="logout-btn">Logout</button>
+    </div>
+    
+    <h3>Available Cars</h3>
+    <div class="car-grid" id="carGrid">
+      </div>
+  </div>
+
+  <script src="customer.js"></script>
 </body>
 </html>

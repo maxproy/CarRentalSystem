@@ -1,31 +1,23 @@
 from flask import Flask, request, jsonify, send_from_directory
-from flask_sqlalchemy import SQLAlchemy
+from extensions import db
 from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
+from datetime import datetime
 import os
-def create_app():
-    """Create and configure the Flask application."""
-    app = Flask(__name__)
 
-    FLASK_ENV = 'development'  # Set the environment to development for debugging
-    if FLASK_ENV == 'development':
-        app.config['DEBUG'] = True
+def create_app():
+    app = Flask(__name__)
        
     return app
 
-FLASK_ENV_SQLALCHEMY_DATABASE_URI = 'sqlite:///blizzardhub.db'  # Database URI for SQLite
-FLASK_ENV_SECRET_KEY = "I2Z0Z0O4H"  # Use a secure key for session management in production
-FLASK_ENV_SQLALCHEMY_ECHO = True # Echo SQL queries for debugging
-# Configurations
 app = create_app()
-app.config['SQLALCHEMY_DATABASE_URI'] = FLASK_ENV_SQLALCHEMY_DATABASE_URI
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blizzardhub.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = FLASK_ENV_SECRET_KEY
+app.config['SECRET_KEY'] = 'your_secret_key_here'  # Change this to a random secret key in production
 
-db = SQLAlchemy(app)
+db.init_app(app)
 CORS(app)
 
-# Import models after db initialization to avoid circular imports
 from models import Car, User, Rental, ContactMessage
 
 # Routes to serve static files (frontend)
@@ -101,11 +93,15 @@ def get_rentals():
 def add_rental():
     data = request.json
     try:
+        # NEW: Convert string dates to Python date objects
+        start_date_obj = datetime.strptime(data.get('start_date'), '%Y-%m-%d').date()
+        end_date_obj = datetime.strptime(data.get('end_date'), '%Y-%m-%d').date()
+
         rental = Rental(
             car_id=data.get('car_id'),
             user_id=data.get('user_id'),
-            start_date=data.get('start_date'),
-            end_date=data.get('end_date')
+            start_date=start_date_obj,
+            end_date=end_date_obj
         )
         db.session.add(rental)
         db.session.commit()
@@ -127,7 +123,7 @@ def delete_rental(rental_id):
 def add_user():
     data = request.json
     try:
-        hashed_password = generate_password_hash(data.get('password'), method='sha256')
+        hashed_password = generate_password_hash(data.get('password'), method='pbkdf2:sha256')
         user = User(
             name=data.get('name'),
             email=data.get('email'),
@@ -166,6 +162,8 @@ def contact():
         return jsonify({'success': False, 'message': str(e)}), 400
 
 if __name__ == '__main__':
-    if not os.path.exists('blizzardhub.db'):
-        db.create_all()
+    with app.app_context():
+        if not os.path.exists('blizzardhub.db'):
+            db.create_all()
+            
     app.run(debug=True)

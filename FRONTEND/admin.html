@@ -16,7 +16,45 @@
       <button type="submit">Login</button>
     </form>
   </div>
+<div class="admin-container" id="adminContainer">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h2>Admin Roles</h2>
+        <button id="logoutBtn" style="background: #333; color: white; padding: 5px 15px; border: none; border-radius: 5px; cursor: pointer;">Logout</button>
+    </div>
+    
+    <div class="admin-options">
+      <button onclick="showForm('manageCars')">Manage Cars</button>
+      <button onclick="showForm('manageUsers')">Manage Users</button>
+      <button onclick="showForm('manageRentals')">Manage Car Rentals</button>
+    </div>
+    ```
 
+### 2. Make the Login "Stick" in `admin.js`
+In your current `admin.js`, you successfully save `localStorage.setItem("isAdminLoggedIn", "true");` when the admin logs in. But, you don't actually *check* that storage when the page reloads, meaning if you refresh the page, it forces you to log in again.
+
+Add this small block of code to the **very top** of your `admin.js` file. It will check if the user is already logged in, and it also adds the functionality for the new logout button we just created:
+
+```javascript
+// --- NEW: Check if admin is already logged in when the page loads ---
+document.addEventListener("DOMContentLoaded", function() {
+    if (localStorage.getItem("isAdminLoggedIn") === "true") {
+        document.getElementById("loginContainer").style.display = "none";
+        document.getElementById("adminContainer").style.display = "block";
+    }
+});
+
+// --- NEW: Logout Logic ---
+document.getElementById("logoutBtn").addEventListener("click", function() {
+    localStorage.removeItem("isAdminLoggedIn");
+    localStorage.removeItem("adminUsername");
+    document.getElementById("loginContainer").style.display = "block";
+    document.getElementById("adminContainer").style.display = "none";
+    
+    // Optional: Redirect back to the homepage
+    // window.location.href = "index.html"; 
+});
+
+// ... The rest of your admin.js code (loginForm listener, showForm, etc.) stays exactly the same! ...
   <!-- Admin Roles Section -->
   <div class="admin-container" id="adminContainer">
     <h2>Admin Roles</h2>

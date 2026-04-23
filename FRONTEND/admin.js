@@ -33,9 +33,13 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
 
 function showForm(formId) {
   const forms = document.querySelectorAll(".form-container");
-  forms.forEach((form) => (form.style.display = "none"));
-  document.getElementById(formId).style.display = "block";
-}
+// OLD CODE (Lines 36-37 in admin.js)
+// const image = document.getElementById("carPhoto").value; 
+// formData.append('image', image);
+
+// NEW CODE:
+const imageFile = document.getElementById("carPhoto").files[0]; // Get the actual file
+formData.append('image', imageFile); // Send the file object to Flask}
 
 // Manage Cars Form Submission
 document.getElementById("carForm").addEventListener("submit", function (e) {
@@ -151,4 +155,5 @@ function removeRental() {
   .catch(() => {
     alert("Error removing rental.");
   });
+}
 }
