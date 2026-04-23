@@ -1,4 +1,4 @@
-# Car Rental Management System
+ Car Rental Management System
 
 ## Overview
 
@@ -67,6 +67,23 @@ The Car Rental Management System is a web-based application designed to streamli
 
 5. **Access the app:**  
    Open your browser and navigate to `http://localhost:3000` (or your configured port).
+
+### Setting Admin Credentials
+
+To set or change the admin username and password, use the provided `create_admin.py` script:
+
+```sh
+python create_admin.py <username> <password>
+```
+
+For example, to create an admin user with username `admin` and password `admin123`:
+
+```sh
+python create_admin.py admin admin123
+```
+
+This script will add the admin user to the database with the password securely hashed.
+   npm install
 
 ## Contributing
 

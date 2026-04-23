@@ -5,6 +5,7 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
 
+  // Remove client-side hardcoded check, rely on backend validation
   fetch('/api/login', {
     method: 'POST',
     headers: {
@@ -15,6 +16,10 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
   .then(response => response.json())
   .then(data => {
     if (data.success) {
+      // Store username in localStorage for session management
+      localStorage.setItem("adminUsername", username);
+      // Optionally, store a session flag instead of password
+      localStorage.setItem("isAdminLoggedIn", "true");
       document.getElementById("loginContainer").style.display = "none";
       document.getElementById("adminContainer").style.display = "block";
     } else {
