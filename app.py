@@ -1,24 +1,37 @@
+import os
 from flask import Flask, request, jsonify, send_from_directory
 from extensions import db
 from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.utils import secure_filename
+from models import Car, User, Rental, ContactMessage
 from datetime import datetime
-import os
 
 def create_app():
     app = Flask(__name__)
-       
+    app.config['DEBUG'] = True
     return app
 
 app = create_app()
+
+# --- ABSOLUTE PATH CONFIGURATION ---
+# This forces Python to find exactly where app.py lives on your computer
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+UPLOAD_FOLDER = os.path.join(BASE_DIR, 'static', 'uploads')
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blizzardhub.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = 'your_secret_key_here'  # Change this to a random secret key in production
+app.config['SECRET_KEY'] = "I2Z0Z0O4H"
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
 db.init_app(app)
 CORS(app)
 
-from models import Car, User, Rental, ContactMessage
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 # Routes to serve static files (frontend)
 @app.route('/')
@@ -33,8 +46,6 @@ def serve_admin():
 def serve_static(path):
     return send_from_directory('.', path)
 
-# API Endpoints
-
 # Cars
 @app.route('/api/cars', methods=['GET'])
 def get_cars():
@@ -42,27 +53,26 @@ def get_cars():
     cars_list = [car.to_dict() for car in cars]
     return jsonify({'success': True, 'cars': cars_list})
 
-from werkzeug.utils import secure_filename
-import os
-
-UPLOAD_FOLDER = 'static/uploads'
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
-
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
 @app.route('/api/cars', methods=['POST'])
 def add_car():
     if 'image' not in request.files:
         return jsonify({'success': False, 'message': 'No image part in the request'}), 400
+    
     image = request.files['image']
     if image.filename == '':
         return jsonify({'success': False, 'message': 'No selected image file'}), 400
+        
     if image and allowed_file(image.filename):
         filename = secure_filename(image.filename)
+        
+        # --- Print to terminal for debugging ---
+        print(f"ATTEMPTING TO SAVE IMAGE TO: {app.config['UPLOAD_FOLDER']}")
+        
+        # --- Bulletproof Folder Creation ---
+        if not os.path.exists(app.config['UPLOAD_FOLDER']):
+            os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+            
+        # Save the image
         image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
     else:
         return jsonify({'success': False, 'message': 'Invalid image file type'}), 400
@@ -80,8 +90,9 @@ def add_car():
         db.session.commit()
         return jsonify({'success': True, 'car': car.to_dict()})
     except Exception as e:
+        print(f"Database error: {e}") 
         return jsonify({'success': False, 'message': str(e)}), 400
-
+    
 # Rentals
 @app.route('/api/rentals', methods=['GET'])
 def get_rentals():
@@ -93,7 +104,7 @@ def get_rentals():
 def add_rental():
     data = request.json
     try:
-        # NEW: Convert string dates to Python date objects
+    
         start_date_obj = datetime.strptime(data.get('start_date'), '%Y-%m-%d').date()
         end_date_obj = datetime.strptime(data.get('end_date'), '%Y-%m-%d').date()
 
@@ -142,7 +153,7 @@ def login():
     user = User.query.filter_by(name=data.get('username')).first()
     if not user or not check_password_hash(user.password_hash, data.get('password')):
         return jsonify({'success': False, 'message': 'Invalid username or password'}), 401
-    # For simplicity, no token generation, just success response
+    
     return jsonify({'success': True, 'message': 'Login successful'})
 
 # Contact

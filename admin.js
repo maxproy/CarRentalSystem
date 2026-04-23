@@ -1,24 +1,33 @@
-// Consolidated admin.js with unified login and form submission logic
+// Check if  already logged in so you don't have to re-type your password
+document.addEventListener("DOMContentLoaded", function() {
+    if (localStorage.getItem("isAdminLoggedIn") === "true") {
+        document.getElementById("loginContainer").style.display = "none";
+        document.getElementById("adminContainer").style.display = "block";
+    }
+});
 
+//  UI Toggles for Admin Forms
+function showForm(formId) {
+  const forms = document.querySelectorAll(".form-container");
+  forms.forEach((form) => (form.style.display = "none"));
+  document.getElementById(formId).style.display = "block";
+}
+
+//  Login & Logout 
 document.getElementById("loginForm").addEventListener("submit", function (e) {
   e.preventDefault();
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
 
-  // Remove client-side hardcoded check, rely on backend validation
   fetch('/api/login', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ username, password })
   })
   .then(response => response.json())
   .then(data => {
     if (data.success) {
-      // Store username in localStorage for session management
       localStorage.setItem("adminUsername", username);
-      // Optionally, store a session flag instead of password
       localStorage.setItem("isAdminLoggedIn", "true");
       document.getElementById("loginContainer").style.display = "none";
       document.getElementById("adminContainer").style.display = "block";
@@ -26,36 +35,34 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
       alert("Invalid username or password");
     }
   })
-  .catch(() => {
-    alert("Error during login.");
-  });
+  .catch(() => alert("Error during login."));
 });
 
-function showForm(formId) {
-  const forms = document.querySelectorAll(".form-container");
-// OLD CODE (Lines 36-37 in admin.js)
-// const image = document.getElementById("carPhoto").value; 
-// formData.append('image', image);
+document.getElementById("logoutBtn").addEventListener("click", function() {
+    localStorage.removeItem("isAdminLoggedIn");
+    localStorage.removeItem("adminUsername");
+    document.getElementById("loginContainer").style.display = "block";
+    document.getElementById("adminContainer").style.display = "none";
+});
 
-// NEW CODE:
-const imageFile = document.getElementById("carPhoto").files[0]; // Get the actual file
-formData.append('image', imageFile); // Send the file object to Flask}
 
-// Manage Cars Form Submission
+// Manage Cars
 document.getElementById("carForm").addEventListener("submit", function (e) {
   e.preventDefault();
   const name = document.getElementById("carModel").value;
   const brand = document.getElementById("carBrand").value;
   const year = document.getElementById("carYear").value;
   const price_per_day = document.getElementById("carPrice").value;
-  const image = document.getElementById("carPhoto").value; // For simplicity, just filename
+  
+  // Fixed Image Upload Logic
+  const imageFile = document.getElementById("carPhoto").files[0]; 
 
   const formData = new FormData();
   formData.append('name', name);
   formData.append('brand', brand);
   formData.append('year', year);
   formData.append('price_per_day', price_per_day);
-  formData.append('image', image);
+  formData.append('image', imageFile);
 
   fetch('/api/cars', {
     method: 'POST',
@@ -64,18 +71,16 @@ document.getElementById("carForm").addEventListener("submit", function (e) {
   .then(response => response.json())
   .then(data => {
     if (data.success) {
-      alert(`Car Added: ${name} (${brand}), Year: ${year}, Price: $${price_per_day}/day`);
+      alert(`Car Added successfully!`);
       document.getElementById("carForm").reset();
     } else {
       alert("Failed to add car: " + data.message);
     }
   })
-  .catch(() => {
-    alert("Error adding car.");
-  });
+  .catch(() => alert("Error adding car."));
 });
 
-// Manage Users Form Submission
+// Manage Users
 document.getElementById("userForm").addEventListener("submit", function (e) {
   e.preventDefault();
   const name = document.getElementById("userName").value;
@@ -84,26 +89,22 @@ document.getElementById("userForm").addEventListener("submit", function (e) {
 
   fetch('/api/users', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ name, email, password })
   })
   .then(response => response.json())
   .then(data => {
     if (data.success) {
-      alert(`User Added: ${name}, Email: ${email}`);
+      alert(`User Added successfully!`);
       document.getElementById("userForm").reset();
     } else {
       alert("Failed to add user: " + data.message);
     }
   })
-  .catch(() => {
-    alert("Error adding user.");
-  });
+  .catch(() => alert("Error adding user."));
 });
 
-// Manage Rentals Form Submission
+// Manage Rentals
 document.getElementById("rentalForm").addEventListener("submit", function (e) {
   e.preventDefault();
   const car_id = document.getElementById("rentalCarId").value;
@@ -113,26 +114,22 @@ document.getElementById("rentalForm").addEventListener("submit", function (e) {
 
   fetch('/api/rentals', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ car_id, user_id, start_date, end_date })
   })
   .then(response => response.json())
   .then(data => {
     if (data.success) {
-      alert(`Rental Added: Car ID: ${car_id}, User ID: ${user_id}, Dates: ${start_date} to ${end_date}`);
+      alert(`Rental Added successfully!`);
       document.getElementById("rentalForm").reset();
     } else {
       alert("Failed to add rental: " + data.message);
     }
   })
-  .catch(() => {
-    alert("Error adding rental.");
-  });
+  .catch(() => alert("Error adding rental."));
 });
 
-// Remove Rental Logic
+// Remove Rental
 function removeRental() {
   const rentalId = document.getElementById("rentalCarId").value;
   if (!rentalId) {
@@ -152,8 +149,5 @@ function removeRental() {
       alert("Failed to remove rental: " + data.message);
     }
   })
-  .catch(() => {
-    alert("Error removing rental.");
-  });
-}
+  .catch(() => alert("Error removing rental."));
 }
